@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Informatics Teacher</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>🤖 AI Informatics Teacher</h1>
+    <p>5–11 сыныпқа арналған жеке ЖИ информатика мұғалімі</p>
+</header>
+
+<main>
+
+    <nav class="menu">
+
+        <button onclick="showSection('ai')">
+            🤖 AI көмекші
+        </button>
+
+        <button onclick="showSection('python')">
+            🐍 Python
+        </button>
+
+        <button onclick="showSection('theory')">
+            📚 Теория
+        </button>
+
+        <button onclick="showSection('test')">
+            📝 Тест
+        </button>
+
+        <button onclick="showSection('results')">
+            📊 Нәтижелер
+        </button>
+
+        <button onclick="showSection('teacher')">
+            👩‍🏫 Мұғалім
+        </button>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- AI -->
+    <!-- ============================= -->
+
+    <section id="ai" class="section active">
+
+        <div class="welcome">
+
+            <h2>🤖 AI Informatics Teacher</h2>
+
+            <p>
+                Кез келген информатика сұрағын қойыңыз.
+            </p>
+
+            <p>
+                Python, алгоритм, есеп, ҰБТ немесе теория —
+                AI түсіндіріп береді.
+            </p>
+
+        </div>
+
+
+        <div class="student-settings">
+
+            <label for="classLevel">
+                🎓 Сыныбыңызды таңдаңыз:
+            </label>
+
+            <select id="classLevel">
+
+                <option value="5">5-сынып</option>
+                <option value="6">6-сынып</option>
+                <option value="7">7-сынып</option>
+                <option value="8">8-сынып</option>
+                <option value="9">9-сынып</option>
+                <option value="10">10-сынып</option>
+                <option value="11">11-сынып</option>
+
+            </select>
+
+        </div>
+
+
+        <textarea
+            id="prompt"
+            placeholder="Мысалы: Python-да for циклі қалай жұмыс істейді?"
+        ></textarea>
+
+
+        <div class="controls">
+
+            <button onclick="sendQuestion()">
+                🚀 Жіберу
+            </button>
+
+            <label for="imageInput">
+                📷 Сурет таңдау
+            </label>
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+                hidden
+                onchange="showSelectedFile()"
+            >
+
+            <button onclick="startVoice()">
+                🎤 Дауыс
+            </button>
+
+        </div>
+
+
+        <div id="selectedFile"></div>
+
+
+        <div id="messages"></div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- PYTHON -->
+    <!-- ============================= -->
+
+    <section id="python" class="section">
+
+        <h2>🐍 Python кодын талдау</h2>
+
+        <p>
+            Python кодыңызды осында жазыңыз.
+            AI қатені тауып, түсіндіреді.
+        </p>
+
+        <textarea
+            id="pythonCode"
+            placeholder="Мысалы:
+
+a = 10
+b = 0
+print(a / b)"
+        ></textarea>
+
+        <button onclick="analyzePython()">
+            🔍 Кодты талдау
+        </button>
+
+        <div id="pythonResult"></div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- THEORY -->
+    <!-- ============================= -->
+
+    <section id="theory" class="section">
+
+        <h2>📚 Информатика теориясы</h2>
+
+        <div class="cards">
+
+            <button onclick="askTheory('Алгоритм')">
+                🔹 Алгоритм
+            </button>
+
+            <button onclick="askTheory('Python')">
+                🐍 Python
+            </button>
+
+            <button onclick="askTheory('Шартты оператор if')">
+                🔀 if
+            </button>
+
+            <button onclick="askTheory('Цикл for')">
+                🔁 for
+            </button>
+
+            <button onclick="askTheory('Цикл while')">
+                🔁 while
+            </button>
+
+            <button onclick="askTheory('Массив')">
+                📦 Массив
+            </button>
+
+            <button onclick="askTheory('Функция')">
+                ⚙️ Функция
+            </button>
+
+            <button onclick="askTheory('Логикалық операторлар')">
+                🧠 Логика
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- TEST -->
+    <!-- ============================= -->
+
+    <section id="test" class="section">
+
+        <h2>📝 Информатика тесті</h2>
+
+        <input
+            type="text"
+            id="studentName"
+            placeholder="Оқушының аты-жөні"
+        >
+
+        <div id="timer">
+            ⏱️ Уақыт: 01:00
+        </div>
+
+        <div id="quiz"></div>
+
+        <button onclick="checkTest()">
+            ✅ Тестті аяқтау
+        </button>
+
+        <div id="testResult"></div>
+
+        <button
+            id="errorAnalysisButton"
+            onclick="showMistakes()"
+            style="display:none;"
+        >
+            🔍 Қателермен жұмыс
+        </button>
+
+        <div id="mistakesResult"></div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- RESULTS -->
+    <!-- ============================= -->
+
+    <section id="results" class="section">
+
+        <h2>📊 Нәтижелер тарихы</h2>
+
+        <div id="resultsList"></div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- TEACHER -->
+    <!-- ============================= -->
+
+    <section id="teacher" class="section">
+
+        <h2>👩‍🏫 Мұғалім бөлімі</h2>
+
+        <div class="teacher-card">
+
+            <p>
+                👨‍🎓 Оқушылар:
+                <b id="studentCount">0</b>
+            </p>
+
+            <p>
+                📝 Тест саны:
+                <b id="testCount">0</b>
+            </p>
+
+            <p>
+                📊 Орташа нәтиже:
+                <b id="averageScore">0%</b>
+            </p>
+
+            <p>
+                🟢 Жоғары деңгей:
+                <b id="highLevel">0</b>
+            </p>
+
+            <p>
+                🟡 Орта деңгей:
+                <b id="middleLevel">0</b>
+            </p>
+
+            <p>
+                🔴 Қосымша жұмыс қажет:
+                <b id="lowLevel">0</b>
+            </p>
+
+        </div>
+
+        <button onclick="updateTeacherStatistics()">
+            🔄 Статистиканы жаңарту
+        </button>
+
+        <button onclick="clearResults()">
+            🗑️ Нәтижелерді өшіру
+        </button>
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

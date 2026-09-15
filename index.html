@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Informatics Teacher</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<!-- ======================================
+     HEADER
+====================================== -->
+
+<header>
+
+    <h1>
+        🤖 AI Informatics Teacher
+    </h1>
+
+    <p>
+        5–11 сыныптарға арналған
+        жеке ЖИ информатика мұғалімі
+    </p>
+
+</header>
+
+
+<main>
+
+<!-- ======================================
+     ОҚУШЫ ПРОФИЛІ
+====================================== -->
+
+<section class="section active" id="profile">
+
+    <div class="welcome">
+
+        <h2>
+            👋 Қош келдіңіз!
+        </h2>
+
+        <p>
+            Жеке оқу профиліңізді енгізіңіз.
+        </p>
+
+        <input
+            type="text"
+            id="studentName"
+            placeholder="Оқушының аты-жөні"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:12px;
+                margin:10px 0;
+                border:1px solid #d1d5db;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+
+        <select
+            id="profileClassLevel"
+            style="
+                width:100%;
+                padding:12px;
+                margin:10px 0;
+                border:1px solid #d1d5db;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+
+            <option value="5">5-сынып</option>
+            <option value="6">6-сынып</option>
+            <option value="7">7-сынып</option>
+            <option value="8">8-сынып</option>
+            <option value="9">9-сынып</option>
+            <option value="10">10-сынып</option>
+            <option value="11">11-сынып</option>
+
+        </select>
+
+        <button
+            onclick="saveProfile()"
+        >
+            💾 Профильді сақтау
+        </button>
+
+        <p id="profileMessage"></p>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================
+     MENU
+====================================== -->
+
+<div class="menu">
+
+    <button
+        onclick="showSection('ai')"
+    >
+        🤖 AI көмекші
+    </button>
+
+    <button
+        onclick="showSection('python')"
+    >
+        🐍 Python
+    </button>
+
+    <button
+        onclick="showSection('theory')"
+    >
+        📚 Теория
+    </button>
+
+    <button
+        onclick="showSection('test')"
+    >
+        📝 Тест
+    </button>
+
+    <button
+        onclick="showSection('results')"
+    >
+        📊 Нәтижелер
+    </button>
+
+    <button
+        onclick="showSection('teacher')"
+    >
+        👩‍🏫 Мұғалім
+    </button>
+
+    <button
+        onclick="showSection('diagnosticSection')"
+    >
+        📊 Диагностика
+    </button>
+
+</div>
+
+
+<!-- ======================================
+     AI КӨМЕКШІ
+====================================== -->
+
+<section
+    class="section"
+    id="ai"
+>
+
+    <h2>
+        🤖 AI Informatics Teacher
+    </h2>
+
+    <p>
+        Сұрағыңызды жазыңыз.
+        Код, есеп немесе тапсырма бойынша көмек алыңыз.
+    </p>
+
+
+    <label>
+        🎓 Сынып:
+    </label>
+
+    <select
+        id="classLevel"
+        style="
+            padding:10px;
+            border-radius:8px;
+            margin:10px 0;
+        "
+    >
+
+        <option value="5">5-сынып</option>
+        <option value="6">6-сынып</option>
+        <option value="7">7-сынып</option>
+        <option value="8">8-сынып</option>
+        <option value="9">9-сынып</option>
+        <option value="10">10-сынып</option>
+        <option value="11">11-сынып</option>
+
+    </select>
+
+
+    <textarea
+        id="prompt"
+        placeholder="Мысалы: Python тілінде 1-ден 100-ге дейінгі жұп сандарды шығаратын программа жаз..."
+    ></textarea>
+
+
+    <div class="controls">
+
+        <button
+            onclick="sendQuestion()"
+        >
+            🚀 AI-ға жіберу
+        </button>
+
+
+        <label
+            for="imageInput"
+        >
+            📷 Сурет таңдау
+        </label>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            style="display:none;"
+        >
+
+
+        <button
+            onclick="startVoice()"
+        >
+            🎤 Дауыс
+        </button>
+
+    </div>
+
+
+    <div id="selectedFile"></div>
+
+
+    <div
+        id="messages"
+        style="margin-top:20px;"
+    ></div>
+
+</section>
+
+
+<!-- ======================================
+     PYTHON
+====================================== -->
+
+<section
+    class="section"
+    id="python"
+>
+
+    <h2>
+        🐍 Python зертханасы
+    </h2>
+
+    <p>
+        Python кодын енгізіп,
+        AI арқылы талдаңыз.
+    </p>
+
+
+    <textarea
+        id="pythonCode"
+        placeholder="Python кодыңызды осы жерге жазыңыз..."
+    ></textarea>
+
+
+    <div class="controls">
+
+        <button
+            onclick="analyzePython()"
+        >
+            🔍 Python кодын талдау
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================
+     ТЕОРИЯ
+====================================== -->
+
+<section
+    class="section"
+    id="theory"
+>
+
+    <h2>
+        📚 Информатика теориясы
+    </h2>
+
+    <p>
+        Тақырыпты таңдаңыз:
+    </p>
+
+
+    <div class="cards">
+
+        <button
+            onclick="askTheory('Алгоритм')"
+        >
+            🧠 Алгоритм
+        </button>
+
+
+        <button
+            onclick="askTheory('Python шартты операторлары')"
+        >
+            🔀 if / else
+        </button>
+
+
+        <button
+            onclick="askTheory('Python циклдері')"
+        >
+            🔄 Циклдер
+        </button>
+
+
+        <button
+            onclick="askTheory('Python массивтері және тізімдер')"
+        >
+            📦 Массивтер
+        </button>
+
+
+        <button
+            onclick="askTheory('Python функциялары')"
+        >
+            ⚙️ Функциялар
+        </button>
+
+
+        <button
+            onclick="askTheory('Бірөлшемді массив')"
+        >
+            📊 Бірөлшемді массив
+        </button>
+
+
+        <button
+            onclick="askTheory('Екіөлшемді массив')"
+        >
+            🧮 Екіөлшемді массив
+        </button>
+
+
+        <button
+            onclick="askTheory('PISA информатика тапсырмалары')"
+        >
+            🌍 PISA
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================
+     ТЕСТ
+====================================== -->
+
+<section
+    class="section"
+    id="test"
+>
+
+    <h2>
+        📝 Информатика тесті
+    </h2>
+
+
+    <div
+        id="timer"
+        style="
+            font-size:20px;
+            font-weight:bold;
+            margin:15px 0;
+        "
+    >
+        ⏱️ Уақыт: 01:00
+    </div>
+
+
+    <div id="quiz"></div>
+
+
+    <button
+        onclick="checkTest()"
+        style="margin-top:20px;"
+    >
+        ✅ Тестті аяқтау
+    </button>
+
+
+    <div
+        id="testResult"
+    ></div>
+
+</section>
+
+
+<!-- ======================================
+     НӘТИЖЕЛЕР
+====================================== -->
+
+<section
+    class="section"
+    id="results"
+>
+
+    <h2>
+        📊 Нәтижелер
+    </h2>
+
+
+    <button
+        onclick="showMistakes()"
+    >
+        🔍 Қателермен жұмыс
+    </button>
+
+
+    <div
+        id="mistakesResult"
+        style="margin-top:20px;"
+    ></div>
+
+
+    <div
+        id="resultsList"
+        style="margin-top:20px;"
+    ></div>
+
+
+    <button
+        onclick="clearResults()"
+        style="margin-top:20px;"
+    >
+        🗑️ Нәтижелерді өшіру
+    </button>
+
+</section>
+
+
+<!-- ======================================
+     МҰҒАЛІМ БӨЛІМІ
+====================================== -->
+
+<section
+    class="section"
+    id="teacher"
+>
+
+    <h2>
+        👩‍🏫 Мұғалім бөлімі
+    </h2>
+
+
+    <div class="cards">
+
+        <div class="teacher-card">
+
+            <h3>
+                📝 Тест саны
+            </h3>
+
+            <p
+                id="testCount"
+                style="font-size:28px;"
+            >
+                0
+            </p>
+
+        </div>
+
+
+        <div class="teacher-card">
+
+            <h3>
+                👨‍🎓 Оқушылар
+            </h3>
+
+            <p
+                id="studentCount"
+                style="font-size:28px;"
+            >
+                0
+            </p>
+
+        </div>
+
+
+        <div class="teacher-card">
+
+            <h3>
+                📊 Орташа нәтиже
+            </h3>
+
+            <p
+                id="averageScore"
+                style="font-size:28px;"
+            >
+                0%
+            </p>
+
+        </div>
+
+
+        <div class="teacher-card">
+
+            <h3>
+                🟢 Жоғары деңгей
+            </h3>
+
+            <p
+                id="highLevel"
+                style="font-size:28px;"
+            >
+                0
+            </p>
+
+        </div>
+
+
+        <div class="teacher-card">
+
+            <h3>
+                🟡 Орта деңгей
+            </h3>
+
+            <p
+                id="middleLevel"
+                style="font-size:28px;"
+            >
+                0
+            </p>
+
+        </div>
+
+
+        <div class="teacher-card">
+
+            <h3>
+                🔴 Қосымша жұмыс
+            </h3>
+
+            <p
+                id="lowLevel"
+                style="font-size:28px;"
+            >
+                0
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================
+     📊 ДИАГНОСТИКА
+====================================== -->
+
+<section
+    class="section"
+    id="diagnosticSection"
+>
+
+    <h2>
+        📊 Бастапқы диагностика
+    </h2>
+
+
+    <p>
+        Диагностика оқушының информатика
+        бойынша бастапқы білім деңгейін анықтайды.
+    </p>
+
+
+    <label>
+        🎓 Сынып:
+    </label>
+
+
+    <select
+        id="diagnosticClass"
+        style="
+            display:block;
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border:1px solid #d1d5db;
+            border-radius:10px;
+            font-size:16px;
+        "
+    >
+
+        <option value="5">
+            5-сынып
+        </option>
+
+        <option value="6">
+            6-сынып
+        </option>
+
+        <option value="7">
+            7-сынып
+        </option>
+
+        <option value="8">
+            8-сынып
+        </option>
+
+        <option value="9">
+            9-сынып
+        </option>
+
+        <option value="10">
+            10-сынып
+        </option>
+
+        <option value="11">
+            11-сынып
+        </option>
+
+    </select>
+
+
+    <button
+        onclick="startDiagnostic()"
+    >
+        🚀 Диагностиканы бастау
+    </button>
+
+
+    <div
+        id="diagnosticQuiz"
+        style="margin-top:20px;"
+    ></div>
+
+
+    <div
+        id="diagnosticResult"
+        style="margin-top:20px;"
+    ></div>
+
+</section>
+
+
+</main>
+
+
+<!-- ======================================
+     ПРОФИЛЬ САҚТАУ
+====================================== -->
+
+<script>
+
+function saveProfile() {
+
+    const name =
+        document.getElementById(
+            "studentName"
+        );
+
+    const classLevel =
+        document.getElementById(
+            "profileClassLevel"
+        );
+
+    const message =
+        document.getElementById(
+            "profileMessage"
+        );
+
+
+    if (!name || !classLevel) {
+        return;
+    }
+
+
+    const studentName =
+        name.value.trim();
+
+
+    if (!studentName) {
+
+        alert(
+            "Аты-жөніңізді енгізіңіз."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "studentName",
+        studentName
+    );
+
+
+    localStorage.setItem(
+        "studentClass",
+        classLevel.value
+    );
+
+
+    // AI бөліміндегі сыныпты автоматты түрде өзгерту
+
+    const aiClass =
+        document.getElementById(
+            "classLevel"
+        );
+
+    if (aiClass) {
+        aiClass.value =
+            classLevel.value;
+    }
+
+
+    // Тесттегі аты-жөнін сақтау
+
+    const testName =
+        document.getElementById(
+            "studentName"
+        );
+
+    if (testName) {
+        testName.value =
+            studentName;
+    }
+
+
+    if (message) {
+
+        message.innerHTML =
+            "✅ Профиль сәтті сақталды!";
+
+        message.style.color =
+            "green";
+
+    }
+
+}
+
+
+// ======================================
+// ПРОФИЛЬДІ ЖҮКТЕУ
+// ======================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const savedName =
+            localStorage.getItem(
+                "studentName"
+            );
+
+
+        const savedClass =
+            localStorage.getItem(
+                "studentClass"
+            );
+
+
+        const nameInput =
+            document.getElementById(
+                "studentName"
+            );
+
+
+        const classInput =
+            document.getElementById(
+                "profileClassLevel"
+            );
+
+
+        if (
+            savedName &&
+            nameInput
+        ) {
+
+            nameInput.value =
+                savedName;
+
+        }
+
+
+        if (
+            savedClass &&
+            classInput
+        ) {
+
+            classInput.value =
+                savedClass;
+
+        }
+
+    }
+);
+
+</script>
+
+
+<!-- ======================================
+     НЕГІЗГІ SCRIPT
+====================================== -->
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
