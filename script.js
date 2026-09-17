@@ -1,3 +1,4 @@
+console.log("✅ script.js жүктелді");
 // ==========================================
 // 🤖 AI INFORMATICS TEACHER
 // НЕГІЗГІ JAVASCRIPT ФАЙЛЫ
@@ -32,6 +33,82 @@ function showSection(sectionId) {
     if (selectedSection) {
         selectedSection.classList.add("active");
     }
+}
+
+// ======================================
+// 🌍 PISA
+// ======================================
+
+function checkPisaAnswer() {
+
+    const answer =
+        Number(
+            document.getElementById("pisaAnswer").value
+        );
+
+    const result =
+        document.getElementById("pisaResult");
+
+    if (!answer) {
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fff7ed;
+                border-radius:10px;
+            ">
+                ⚠️ Жауабыңызды енгізіңіз.
+            </div>
+        `;
+        return;
+    }
+
+    if (answer === 18) {
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#dcfce7;
+                border-radius:10px;
+            ">
+                <h3>🎉 Дұрыс жауап!</h3>
+
+                <p>
+                    24 × 75 ÷ 100 = 18
+                </p>
+
+                <p>
+                    🌟 Функционалдық сауаттылық
+                    тапсырмасы дұрыс орындалды.
+                </p>
+            </div>
+        `;
+
+    } else {
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fee2e2;
+                border-radius:10px;
+            ">
+                <h3>❌ Қате жауап</h3>
+
+                <p>
+                    75% = 75 ÷ 100
+                </p>
+
+                <p>
+                    24 × 75 ÷ 100 = 18
+                </p>
+
+                <p>
+                    💡 Қатені түсініп, қайта орындап көріңіз.
+                </p>
+            </div>
+        `;
+
+    }
+
 }
 
 
@@ -1899,6 +1976,8 @@ function finishDiagnostic() {
         Object.keys(topicCount);
 
 
+
+
     // ======================================
     // 🎯 ЖЕКЕ ОҚУ БАҒЫТЫ
     // ======================================
@@ -2437,3 +2516,1039 @@ document.addEventListener(
 
     }
 );
+// ======================================
+// 🎯 ЖЕКЕ ОҚУ ТРАЕКТОРИЯСЫ
+// ======================================
+
+function createLearningTrajectory() {
+
+    const result =
+        document.getElementById("trajectoryResult");
+
+    if (!result) return;
+
+    // Диагностика нәтижесін тексеру
+    if (
+        typeof diagnosticWrongAnswers === "undefined" ||
+        diagnosticWrongAnswers.length === 0
+    ) {
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                border-radius:12px;
+                background:#f0fdf4;
+                margin-bottom:15px;
+            ">
+                <h3>🎉 Әлсіз тақырып анықталған жоқ!</h3>
+
+                <p>
+                    Диагностика нәтижесі бойынша
+                    негізгі тақырыптар жақсы меңгерілген.
+                </p>
+
+                <p>
+                    Күрделірек тапсырмалар орындап,
+                    біліміңізді тереңдетуге болады.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    // Әлсіз тақырыптарды жинау
+    const weakTopics = [];
+
+    diagnosticWrongAnswers.forEach(function(item) {
+
+        if (
+            item.topic &&
+            !weakTopics.includes(item.topic)
+        ) {
+            weakTopics.push(item.topic);
+        }
+
+    });
+
+
+    if (weakTopics.length === 0) {
+
+        result.innerHTML = `
+            <p>
+                🎉 Әлсіз тақырыптар анықталған жоқ.
+            </p>
+        `;
+
+        return;
+    }
+
+    // Жеке оқу жоспары
+    let html = `
+
+        <div style="
+            padding:18px;
+            border-radius:14px;
+            background:#eff6ff;
+            margin-bottom:20px;
+        ">
+
+            <h3>
+                🎯 Сіздің жеке оқу жоспарыңыз
+            </h3>
+
+            <p>
+                Диагностика нәтижесіне сүйене отырып,
+                алдымен төмендегі тақырыптарды
+                қайталау ұсынылады.
+            </p>
+
+        </div>
+
+        <div>
+    `;
+
+
+    weakTopics.forEach(function(topic, index) {
+
+        html += `
+
+            <div style="
+                padding:15px;
+                margin:10px 0;
+                border:1px solid #dbeafe;
+                border-radius:12px;
+                background:white;
+            ">
+
+                <h3>
+                    ${index + 1}. 📚 ${escapeHtml(topic)}
+                </h3>
+
+                <p>
+                    <b>1-кезең:</b>
+                    Тақырыптың теориясын қайталау
+                </p>
+
+                <p>
+                    <b>2-кезең:</b>
+                    Қарапайым мысал орындау
+                </p>
+
+                <p>
+                    <b>3-кезең:</b>
+                    Практикалық Python тапсырмасын орындау
+                </p>
+
+                <p>
+                    <b>4-кезең:</b>
+                    Қатені AI көмегімен талдау
+                </p>
+
+                <p>
+                    <b>5-кезең:</b>
+                    Қайта тест тапсыру
+                </p>
+
+            </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </div>
+
+        <div style="
+            margin-top:20px;
+            padding:15px;
+            border-radius:12px;
+            background:#fefce8;
+        ">
+
+            <h3>
+                🔄 Келесі қадам
+            </h3>
+
+            <p>
+                Әлсіз тақырыптарды қайталағаннан кейін
+                қайта диагностикадан өтіп,
+                нәтиже динамикасын салыстыруға болады.
+            </p>
+
+        </div>
+
+    `;
+
+
+    result.innerHTML = html;
+}
+
+// ======================================
+// 📈 ДИАГНОСТИКА НӘТИЖЕЛЕРІНІҢ ДИНАМИКАСЫ
+// ======================================
+
+function showDynamics() {
+
+    const result = document.getElementById("dynamicsResult");
+
+    if (!result) return;
+
+    const history = JSON.parse(
+        localStorage.getItem("diagnosticHistory") || "[]"
+    );
+
+    if (history.length === 0) {
+
+        result.innerHTML = `
+            <div style="
+                padding:18px;
+                background:#fff7ed;
+                border-radius:12px;
+            ">
+                ⚠️ Әзірге диагностика нәтижесі жоқ.
+                <br><br>
+                Алдымен диагностикадан өтіңіз.
+            </div>
+        `;
+
+        return;
+    }
+
+    const first = history[0];
+    const last = history[history.length - 1];
+
+    if (history.length === 1) {
+
+        result.innerHTML = `
+            <div style="
+                padding:18px;
+                background:#eff6ff;
+                border-radius:12px;
+            ">
+                <h3>📊 Бастапқы диагностика</h3>
+
+                <p>
+                    Оқушы:
+                    <b>${escapeHtml(first.name)}</b>
+                </p>
+
+                <p>
+                    Нәтиже:
+                    <b>${first.percent}%</b>
+                </p>
+
+                <p>
+                    🔄 Енді оқу траекториясы бойынша
+                    тапсырмаларды орындап,
+                    қайта диагностикадан өтіңіз.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    const difference = last.percent - first.percent;
+
+    let changeText = "";
+
+    if (difference > 0) {
+        changeText = `
+            <h3 style="color:green;">
+                📈 Нәтиже ${difference} пайыздық пунктке өсті!
+            </h3>
+        `;
+    } else if (difference < 0) {
+        changeText = `
+            <h3 style="color:red;">
+                📉 Нәтиже ${Math.abs(difference)}
+                пайыздық пунктке төмендеді.
+            </h3>
+        `;
+    } else {
+        changeText = `
+            <h3>➡️ Нәтиже өзгерген жоқ.</h3>
+        `;
+    }
+
+    result.innerHTML = `
+        <div style="
+            padding:20px;
+            background:#f8fafc;
+            border-radius:14px;
+            margin-top:15px;
+        ">
+
+            <h3>👨‍🎓 ${escapeHtml(last.name)}</h3>
+
+            <p>
+                📊 Бастапқы диагностика:
+                <b>${first.percent}%</b>
+            </p>
+
+            <p>
+                🔄 Қайта диагностика:
+                <b>${last.percent}%</b>
+            </p>
+
+            ${changeText}
+
+            <hr>
+
+            <h3>🎯 Оқу нәтижесі</h3>
+
+            <p>
+                Диагностика нәтижесіне сүйене отырып,
+                оқушының оқу жетістігі салыстырылды.
+            </p>
+
+        </div>
+    `;
+}
+
+// ======================================
+// 📈 ДИНАМИКА
+// ======================================
+
+function showDynamics() {
+
+    const result = document.getElementById("dynamicsResult");
+
+    if (!result) return;
+
+    const history = JSON.parse(
+        localStorage.getItem("diagnosticHistory") || "[]"
+    );
+
+    if (history.length === 0) {
+
+        result.innerHTML = `
+            <div style="
+                padding:18px;
+                background:#fff7ed;
+                border-radius:12px;
+            ">
+                ⚠️ Диагностика нәтижесі жоқ.
+                <br><br>
+                Алдымен диагностикадан өтіңіз.
+            </div>
+        `;
+
+        return;
+    }
+
+    const first = history[0];
+    const last = history[history.length - 1];
+
+    if (history.length === 1) {
+
+        result.innerHTML = `
+            <div style="
+                padding:18px;
+                background:#eff6ff;
+                border-radius:12px;
+            ">
+                <h3>📊 Бастапқы диагностика</h3>
+
+                <p>
+                    Оқушы:
+                    <b>${escapeHtml(first.name)}</b>
+                </p>
+
+                <p>
+                    Нәтиже:
+                    <b>${first.percent}%</b>
+                </p>
+
+                <p>
+                    🔄 Оқу тапсырмаларын орындап,
+                    қайта диагностикадан өтіңіз.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    const difference = last.percent - first.percent;
+
+    let changeText = "";
+
+    if (difference > 0) {
+
+        changeText = `
+            <h3 style="color:green;">
+                📈 Нәтиже +${difference} пайыздық пунктке өсті!
+            </h3>
+        `;
+
+    } else if (difference < 0) {
+
+        changeText = `
+            <h3 style="color:red;">
+                📉 Нәтиже ${difference} пайыздық пунктке төмендеді.
+            </h3>
+        `;
+
+    } else {
+
+        changeText = `
+            <h3>➡️ Нәтиже өзгерген жоқ.</h3>
+        `;
+    }
+
+    result.innerHTML = `
+        <div style="
+            padding:20px;
+            background:#f8fafc;
+            border-radius:14px;
+        ">
+
+            <h3>👨‍🎓 ${escapeHtml(last.name)}</h3>
+
+            <p>
+                📊 Бастапқы диагностика:
+                <b>${first.percent}%</b>
+            </p>
+
+            <p>
+                🔄 Қайта диагностика:
+                <b>${last.percent}%</b>
+            </p>
+
+            ${changeText}
+
+            <hr>
+
+            <h3>🎯 Оқу нәтижесі</h3>
+
+            <p>
+                Бастапқы және қайта диагностика
+                нәтижелері салыстырылды.
+            </p>
+
+        </div>
+    `;
+}
+async function generateFullPrompt() {
+    
+
+     const type =
+        document.getElementById("promptType").value;
+
+    const subject =
+        document.getElementById("promptSubject").value.trim();
+
+    const classLevel =
+        document.getElementById("promptClass").value;
+
+    const idea =
+        document.getElementById("promptIdea").value.trim();
+
+    const details =
+        document.getElementById("promptDetails").value.trim();
+
+    const result =
+        document.getElementById("fullPromptResult");
+
+    if (!idea) {
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fff7ed;
+                border-radius:12px;
+            ">
+                ⚠️ Алдымен негізгі идеяңызды жазыңыз.
+            </div>
+        `;
+
+        return;
+    }
+
+    result.innerHTML = `
+        <div style="
+            padding:15px;
+            background:#eff6ff;
+            border-radius:12px;
+        ">
+            ⏳ AI кәсіби промпт құрастырып жатыр...
+        </div>
+    `;
+
+    const aiPrompt = `
+Сен кәсіби PROMPT ENGINEER және педагогикалық ЖИ ассистентісің.
+
+Мұғалімге немесе оқушыға кез келген цифрлық өнімге
+кәсіби промпт құрастыруға көмектес.
+
+Өнім түрі:
+${type}
+
+Пән:
+${subject || "көрсетілмеген"}
+
+Сынып:
+${classLevel}
+
+Негізгі идея:
+${idea}
+
+Қосымша талаптар:
+${details || "көрсетілмеген"}
+
+Осы ақпарат негізінде өте сапалы, нақты және қолдануға
+дайын промпт құрастыр.
+
+Промптта мүмкіндігінше мыналарды ескер:
+
+1. 🎯 Мақсат
+2. 📚 Пән және сынып деңгейі
+3. 💡 Негізгі идея
+4. 👤 Кейіпкерлер немесе негізгі объектілер
+5. 🌍 Оқиға орны / орта
+6. 🎨 Визуалдық стиль
+7. 💡 Жарық және атмосфера
+8. 🎥 Камера сипаттамасы — видео болса
+9. 🎬 Қозғалыс — видео/анимация болса
+10. 🎵 Дауыс және музыка — қажет болса
+11. 📝 Мәтін / жазулар
+12. 📐 Формат және өлшем
+13. 🚫 Negative Prompt
+14. ✅ Күтілетін нәтиже
+15. 📊 Презентация құрылымы — егер өнім түрі презентация болса
+16. 📝 Әр слайдтың тақырыбы
+17. 📖 Әр слайдтың негізгі мазмұны
+18. 🎯 Әр слайдтың оқу мақсаты
+19. 🧩 Оқушыға арналған тапсырма
+20. 🖼️ Әр слайдқа ұсынылатын визуал
+21. 📌 Қорытынды және кері байланыс
+
+Егер кейбір ақпарат көрсетілмесе,
+өнім түріне қарай ең орынды нұсқаны ұсын.
+
+Жауапты қазақ тілінде бер.
+Егер өнім түрі "📊 Презентация" болса,
+әр слайдты жеке-жеке жоспарла.
+
+Әр слайдта:
+- слайд нөмірі;
+- тақырып;
+- негізгі мазмұн;
+- оқу мақсаты;
+- оқушыға арналған тапсырма;
+- ұсынылатын визуал
+
+болсын.
+
+Презентация сабақта бірден қолдануға
+болатындай түсінікті және жүйелі болсын.
+Соңында:
+"📋 ДАЙЫН ПРОМПТ" деген бөлімде
+бірден көшіріп пайдалануға болатын толық промпт бер.
+`;
+
+    try {
+
+        const response = await fetch("/api/ask", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                prompt: aiPrompt
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        result.innerHTML = `
+            <div style="
+                padding:20px;
+                background:#f8fafc;
+                border-radius:14px;
+            ">
+
+                <h3>✨ AI жасаған кәсіби промпт</h3>
+
+                <div style="
+                    background:white;
+                    padding:18px;
+                    border-radius:12px;
+                    line-height:1.7;
+                ">
+                    ${formatAnswer(data.answer)}
+                </div>
+
+                <button
+                    onclick="copyPromptResult()"
+                    style="
+                        width:100%;
+                        padding:14px;
+                        margin-top:15px;
+                    "
+                >
+                    📋 Промптты көшіру
+                </button>
+
+            </div>
+        `;
+
+    } catch (error) {
+
+        console.error(error);
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fee2e2;
+                border-radius:12px;
+            ">
+                ❌ AI серверіне қосылу кезінде қате пайда болды.
+            </div>
+        `;
+    }
+}
+
+
+function copyPromptResult() {
+
+    const result =
+        document.getElementById("fullPromptResult");
+
+    if (!result) return;
+
+    const text =
+        result.innerText;
+
+    navigator.clipboard.writeText(text)
+        .then(() => {
+
+            alert("✅ Промпт көшірілді!");
+
+        })
+        .catch(() => {
+
+            alert("❌ Көшіру мүмкін болмады.");
+
+        });
+}
+async function generateFullPrompt() {
+
+    const type =
+        document.getElementById("promptType").value;
+
+    const subject =
+        document.getElementById("promptSubject").value.trim();
+
+    const classLevel =
+        document.getElementById("promptClass").value;
+
+    const idea =
+        document.getElementById("promptIdea").value.trim();
+
+    const details =
+        document.getElementById("promptDetails").value.trim();
+
+    const result =
+        document.getElementById("fullPromptResult");
+
+    if (!idea) {
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fff7ed;
+                border-radius:12px;
+            ">
+                ⚠️ Алдымен негізгі идеяңызды жазыңыз.
+            </div>
+        `;
+        return;
+    }
+
+    result.innerHTML = `
+        <div style="
+            padding:15px;
+            background:#eff6ff;
+            border-radius:12px;
+        ">
+            ⏳ AI кәсіби промпт құрастырып жатыр...
+        </div>
+    `;
+
+    const aiPrompt = `
+Сен кәсіби PROMPT ENGINEER және педагогикалық ЖИ ассистентісің.
+
+Мұғалімге немесе оқушыға цифрлық өнімге
+сапалы және қолдануға дайын кәсіби промпт құрастыр.
+
+Өнім түрі:
+${type}
+
+Пән:
+${subject || "көрсетілмеген"}
+
+Сынып:
+${classLevel}
+
+Негізгі идея:
+${idea}
+
+Қосымша талаптар:
+${details || "көрсетілмеген"}
+
+Негізгі талаптар:
+
+1. Мақсат
+2. Пән және сынып деңгейі
+3. Негізгі идея
+4. Негізгі мазмұн
+5. Кейіпкерлер немесе объектілер
+6. Оқиға орны немесе орта
+7. Стиль
+8. Атмосфера
+9. Камера және ракурс — қажет болса
+10. Қозғалыс — видео немесе анимация болса
+11. Дауыс және музыка — қажет болса
+12. Мәтін және жазулар
+13. Формат және өлшем
+14. Negative Prompt — қажет болса
+15. Күтілетін нәтиже
+
+ЕГЕР ӨНІМ ТҮРІ "📊 Презентация" БОЛСА:
+
+Презентацияны сабақта бірден қолдануға болатын
+жүйелі құрылым ретінде жаса.
+
+Әр слайд үшін:
+- слайд нөмірі;
+- слайд тақырыбы;
+- негізгі мазмұны;
+- оқу мақсаты;
+- оқушыға арналған тапсырма;
+- ұсынылатын визуал;
+- қажет болса мұғалімге арналған түсіндірме
+
+көрсетілсін.
+
+Слайд саны қолданушының талабына сәйкес болсын.
+
+Презентация 5-11 сынып оқушысына түсінікті,
+педагогикалық жағынан дұрыс және қызықты болсын.
+
+Егер кейбір ақпарат көрсетілмесе,
+өнім түріне қарай орынды нұсқаны өзің ұсын.
+
+Жауап қазақ тілінде болсын.
+
+Жауап құрылымы:
+
+## 💡 Сұранысты талдау
+
+## 🔎 Өнім түрі
+
+## ⚙️ Негізгі параметрлер
+
+## 📋 ДАЙЫН КӘСІБИ ПРОМПТ
+
+Бірден көшіріп пайдалануға болатын
+толық кәсіби промпт бер.
+
+## 🚫 NEGATIVE PROMPT
+
+Қажет болса көрсет.
+
+## 💡 Қолдану кеңесі
+
+Промптты қалай қолдануға болатынын қысқаша түсіндір.
+`;
+
+    try {
+
+        const response = await fetch("/api/ask", {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                prompt: aiPrompt
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+            throw new Error(
+                data.error || "AI серверінен жауап алынбады."
+            );
+        }
+
+        result.innerHTML = `
+            <div style="
+                padding:20px;
+                background:#f8fafc;
+                border-radius:14px;
+            ">
+
+                <h3>✨ AI жасаған кәсіби промпт</h3>
+
+                <div style="
+                    background:white;
+                    padding:18px;
+                    border-radius:12px;
+                    line-height:1.7;
+                ">
+                    ${formatAnswer(data.answer)}
+                </div>
+
+                <button
+                    onclick="copyPromptResult()"
+                    style="
+                        width:100%;
+                        padding:14px;
+                        margin-top:15px;
+                        border:none;
+                        border-radius:10px;
+                        cursor:pointer;
+                    "
+                >
+                    📋 Промптты көшіру
+                </button>
+
+            </div>
+        `;
+
+    } catch (error) {
+
+        console.error("PROMPT ERROR:", error);
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fee2e2;
+                border-radius:12px;
+                color:#991b1b;
+            ">
+                ❌ ${error.message}
+            </div>
+        `;
+    }
+}
+
+
+function copyUniversalPrompt() {
+
+    const result =
+        document.getElementById("universalPromptResult");
+
+    if (!result) return;
+
+    const text = result.innerText;
+
+    navigator.clipboard.writeText(text)
+        .then(() => {
+
+            alert("✅ Кәсіби промпт көшірілді!");
+
+        })
+        .catch(() => {
+
+            alert("❌ Промптты көшіру мүмкін болмады.");
+
+        });
+}
+// ======================================
+// 🖼️ AI СУРЕТ ЖАСАУ
+// ======================================
+
+async function generateAIImage() {
+console.log("🖼️ generateAIImage іске қосылды");
+
+    const promptInput =
+        document.getElementById("imagePrompt");
+
+    const result =
+        document.getElementById("imageResult");
+
+    if (!promptInput || !result) {
+        return;
+    }
+
+    const prompt =
+        promptInput.value.trim();
+
+    if (!prompt) {
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fff7ed;
+                border-radius:12px;
+            ">
+                ⚠️ Алдымен суретке арналған промпт жазыңыз.
+            </div>
+        `;
+
+        return;
+    }
+    result.innerHTML = `
+        <div style="
+            padding:20px;
+            background:#eff6ff;
+            border-radius:12px;
+        ">
+            ⏳ AI сурет жасап жатыр...
+            <br><br>
+            Біраз күте тұрыңыз.
+        </div>
+    `;
+
+    try {
+
+        const response =
+            await fetch("/api/generate-image", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    prompt: prompt
+                })
+
+            });
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "Сурет жасау кезінде қате пайда болды."
+            );
+
+        }
+
+        if (!data.image) {
+
+            throw new Error(
+                "Сурет алынбады."
+            );
+
+        }
+
+        result.innerHTML = `
+
+            <div style="
+                padding:15px;
+                background:#f0fdf4;
+                border-radius:14px;
+            ">
+
+                <h3>✅ Сурет дайын!</h3>
+
+                <img
+                    src="${data.image}"
+                    alt="AI жасаған сурет"
+                    style="
+                        width:100%;
+                        max-width:700px;
+                        border-radius:14px;
+                        margin-top:10px;
+                    "
+                >
+
+                <br>
+
+                <button
+                    onclick="downloadAIImage()"
+                    style="
+                        margin-top:15px;
+                        padding:12px 20px;
+                        border:none;
+                        border-radius:10px;
+                        cursor:pointer;
+                    "
+                >
+                    💾 Суретті сақтау
+                </button>
+
+            </div>
+        `;
+
+     
+
+    } catch (error) {
+
+        console.error(error);
+
+        result.innerHTML = `
+            <div style="
+                padding:15px;
+                background:#fee2e2;
+                border-radius:12px;
+            ">
+                ❌ ${error.message}
+            </div>
+        `;
+
+    }
+}
+
+
+// ======================================
+// 💾 СУРЕТТІ САҚТАУ
+// ======================================
+
+async function downloadAIImage() {
+
+    if (!window.generatedAIImage) {
+        alert("Алдымен сурет жасаңыз.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(window.generatedAIImage);
+
+        const blob = await response.blob();
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "AI-Informatics-Teacher-image.png";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    } catch (error) {
+
+        console.error("Суретті сақтау қатесі:", error);
+
+        alert("Суретті сақтау кезінде қате пайда болды.");
+    }
+}

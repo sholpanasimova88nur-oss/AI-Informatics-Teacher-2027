@@ -136,7 +136,58 @@ app.post("/api/ask", upload.single("image"), async (req, res) => {
         });
     }
 });
+// ======================================
+// 🖼️ СУРЕТ ГЕНЕРАЦИЯСЫ
+// ======================================
 
+// ======================================
+// 🖼️ AI СУРЕТ ГЕНЕРАЦИЯСЫ
+// ======================================
+
+app.post("/api/generate-image", async (req, res) => {
+    try {
+        const prompt = req.body.prompt;
+
+        if (!prompt) {
+            return res.status(400).json({
+                error: "Суретке арналған промпт енгізіңіз."
+            });
+        }
+
+        console.log("🖼️ Сурет жасалуда...");
+
+        const result = await client.images.generate({
+            model: "gpt-image-2",
+            prompt: prompt,
+            size: "1024x1024"
+        });
+
+        console.log("✅ Сурет дайын");
+
+        const imageBase64 = result.data?.[0]?.b64_json;
+
+        if (!imageBase64) {
+            throw new Error("API сурет деректерін қайтармады.");
+        }
+
+        res.json({
+            image: `data:image/png;base64,${imageBase64}`
+        });
+
+    } catch (error) {
+
+        console.error("❌ IMAGE ERROR:");
+        console.error(error);
+
+        res.status(500).json({
+            error:
+                error?.message ||
+                "Сурет жасау кезінде белгісіз қате пайда болды."
+        });
+    }
+});
 app.listen(PORT, () => {
     console.log(`AI Informatics Teacher іске қосылды: http://localhost:${PORT}`);
+console.log("SERVER PROCESS ТЕКСЕРУ");
+setInterval(() => {}, 1000);
 });

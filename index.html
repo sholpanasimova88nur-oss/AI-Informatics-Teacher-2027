@@ -151,7 +151,23 @@
     >
         📊 Диагностика
     </button>
+<button onclick="showSection('dynamicsSection')">
+    📈 Динамика
+</button>
 
+<button
+    onclick="showSection('pisaSection')"
+>
+    🌍 PISA
+</button>
+<button onclick="showSection('promptLabSection')">
+    🧪 Prompt Lab
+</button>
+<button
+    onclick="showSection('trajectorySection')"
+>
+    🎯 Жеке траектория
+</button>
 </div>
 
 
@@ -656,9 +672,498 @@
     ></div>
 
 </section>
+<!-- ======================================
+     🎯 ЖЕКЕ ОҚУ ТРАЕКТОРИЯСЫ
+====================================== -->
 
+<section
+    class="section"
+    id="trajectorySection"
+>
 
+    <h2>
+        🎯 Жеке оқу траекториясы
+    </h2>
+
+    <p>
+        Диагностика нәтижесіне сүйене отырып,
+        AI оқушыға жеке оқу жоспарын ұсынады.
+    </p>
+
+    <div id="trajectoryResult">
+
+        <p>
+            Алдымен диагностикадан өтіңіз.
+        </p>
+
+    </div>
+
+    <button
+        onclick="createLearningTrajectory()"
+    >
+        🚀 Жеке оқу жоспарын құру
+    </button>
+
+</section>
+<section class="section" id="dynamicsSection">
+    <h2>📈 Оқу нәтижесінің динамикасы</h2>
+
+    <p>
+        Диагностика нәтижелерін салыстыру арқылы
+        оқушының оқу жетістігін бақылау.
+    </p>
+
+    <div id="dynamicsResult">
+        <p>Алдымен диагностикадан өтіңіз.</p>
+    </div>
+
+    <button onclick="showDynamics()">
+        📊 Динамиканы көрсету
+    </button>
+</section>
+<section class="section" id="promptLabSection">
+
+    <h2>🧪 PROMPT LAB — пәндік ЖИ шеберханасы</h2>
+
+    <p>
+        🎯 Сурет, видео, презентация, комикс, анимация,
+        постер, аудио және басқа цифрлық өнімдерге
+        кәсіби промпт құрастырыңыз.
+    </p>
+
+    <div style="
+        background:#eff6ff;
+        padding:18px;
+        border-radius:14px;
+        margin-top:15px;
+    ">
+
+        <h3>1️⃣ Қандай өнім жасағыңыз келеді?</h3>
+
+        <select id="promptType"
+            style="
+                width:100%;
+                padding:12px;
+                border-radius:10px;
+                border:1px solid #d1d5db;
+                font-size:16px;
+            ">
+
+            <option value="Сурет">🖼️ Сурет</option>
+            <option value="Видео">🎬 Видео</option>
+            <option value="Презентация">📊 Презентация</option>
+            <option value="Комикс">🎭 Комикс</option>
+            <option value="Анимация">✨ Анимация</option>
+            <option value="Постер">📰 Постер</option>
+            <option value="Аудио">🎵 Аудио</option>
+            <option value="Сабақ">📚 Сабақ материалы</option>
+            <option value="Тест">📝 Тест</option>
+            <option value="Басқа">💡 Басқа</option>
+
+        </select>
+
+        <h3>2️⃣ Пән</h3>
+
+        <input
+            id="promptSubject"
+            placeholder="Мысалы: Информатика"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:12px;
+                border-radius:10px;
+                border:1px solid #d1d5db;
+                font-size:16px;
+            "
+        >
+
+        <h3>3️⃣ Сынып</h3>
+
+        <select id="promptClass"
+            style="
+                width:100%;
+                padding:12px;
+                border-radius:10px;
+                border:1px solid #d1d5db;
+                font-size:16px;
+            ">
+
+            <option>5-сынып</option>
+            <option>6-сынып</option>
+            <option>7-сынып</option>
+            <option>8-сынып</option>
+            <option>9-сынып</option>
+            <option>10-сынып</option>
+            <option>11-сынып</option>
+
+        </select>
+
+        <h3>4️⃣ Тақырып / идея</h3>
+
+        <textarea
+            id="promptIdea"
+            placeholder="Мысалы: Python циклін қызықты комикс арқылы түсіндіру"
+            style="
+                width:100%;
+                min-height:120px;
+                box-sizing:border-box;
+                padding:12px;
+                border-radius:10px;
+                border:1px solid #d1d5db;
+                font-size:16px;
+            "
+        ></textarea>
+
+        <h3>5️⃣ Қосымша талаптар</h3>
+
+        <textarea
+            id="promptDetails"
+            placeholder="Кейіпкерлер, стиль, фон, түс, камера қозғалысы, дауыс, музыка және т.б."
+            style="
+                width:100%;
+                min-height:120px;
+                box-sizing:border-box;
+                padding:12px;
+                border-radius:10px;
+                border:1px solid #d1d5db;
+                font-size:16px;
+            "
+        ></textarea>
+
+        <button
+            onclick="generateFullPrompt()"
+            style="
+                margin-top:15px;
+                width:100%;
+                padding:14px;
+                border:none;
+                border-radius:12px;
+                font-size:17px;
+                cursor:pointer;
+            "
+        >
+            🤖 КӘСІБИ ПРОМПТ ҚҰРАСТЫРУ
+        </button>
+
+    </div>
+
+    <div
+        id="fullPromptResult"
+        style="margin-top:20px;"
+    >
+    </div>
+
+</section>
+МҰНДАҒЫ БАР КОДТАР
+
+<section class="section" id="promptLabSection">
+...
+</section>
+    <h2>🧪 PROMPT LAB — ЖИ промпт шеберханасы</h2>
+<div style="
+    background:#eff6ff;
+    padding:18px;
+    border-radius:14px;
+    margin-top:15px;
+">
+
+    <h3>💬 Не жасағыңыз келеді?</h3>
+
+    <p>
+        Ойыңызды еркін жазыңыз.
+        AI оны кәсіби және дайын қолданылатын
+        промптқа айналдырады.
+    </p>
+
+    <textarea
+        id="universalPromptInput"
+        placeholder="Мысалы: 8-сынып оқушыларына жасанды интеллект туралы қызықты қазақша комикс жасағым келеді..."
+        style="
+            width:100%;
+            min-height:160px;
+            box-sizing:border-box;
+            padding:14px;
+            border-radius:12px;
+            border:1px solid #d1d5db;
+            font-size:16px;
+        "
+    ></textarea>
+
+    <button
+        onclick="generateUniversalPrompt()"
+        style="
+            width:100%;
+            padding:15px;
+            margin-top:12px;
+            border:none;
+            border-radius:12px;
+            font-size:17px;
+            cursor:pointer;
+        "
+    >
+        ✨ КӘСІБИ ПРОМПТ ҚҰРАСТЫРУ
+    </button>
+
+</div>
+
+<div
+    id="universalPromptResult"
+    style="margin-top:20px;"
+></div>
+<!-- ======================================
+     🖼️ AI СУРЕТ ЖАСАУ
+====================================== -->
+
+<div style="
+    margin-top:20px;
+    padding:18px;
+    background:#f8fafc;
+    border-radius:14px;
+">
+
+    <h3>🖼️ AI арқылы сурет жасау</h3>
+<div style="
+    margin-top:20px;
+    padding:18px;
+    background:#eef2ff;
+    border-radius:14px;
+">
+
+    <h3>📊 AI арқылы презентация жасау</h3>
+
+    <p>
+        Тақырыпты жазыңыз. ЖИ сізге сабаққа арналған
+        кәсіби презентация құрылымын жасайды.
+    </p>
+
+    <input
+        id="presentationTopic"
+        type="text"
+        placeholder="Мысалы: 8-сынып. Python-дағы циклдер"
+        style="
+            width:100%;
+            box-sizing:border-box;
+            padding:14px;
+            border-radius:10px;
+            border:1px solid #d1d5db;
+            font-size:16px;
+        "
+    >
+
+    <input
+        id="presentationSlides"
+        type="number"
+        value="7"
+        min="3"
+        max="20"
+        style="
+            width:100%;
+            box-sizing:border-box;
+            padding:14px;
+            margin-top:10px;
+            border-radius:10px;
+            border:1px solid #d1d5db;
+            font-size:16px;
+        "
+    >
+
+    <button
+        onclick="generatePresentation()"
+        style="
+            width:100%;
+            padding:15px;
+            margin-top:12px;
+            border:none;
+            border-radius:12px;
+            font-size:17px;
+            cursor:pointer;
+        "
+    >
+        📊 ПРЕЗЕНТАЦИЯ ЖАСАУ
+    </button>
+
+    <div
+        id="presentationResult"
+        style="margin-top:20px;"
+    ></div>
+
+</div>
+
+    <p>
+        Кәсіби промптты төменге енгізіңіз:
+    </p>
+
+    <textarea
+        id="imagePrompt"
+        placeholder="Мысалы: 8-сынып оқушыларына арналған Python сабағы, заманауи информатика кабинеті..."
+        style="
+            width:100%;
+            min-height:140px;
+            box-sizing:border-box;
+            padding:14px;
+            border-radius:12px;
+            border:1px solid #d1d5db;
+            font-size:16px;
+        "
+    ></textarea>
+
+    <button
+       onclick="generateAIImage()"
+        style="
+            width:100%;
+            padding:15px;
+            margin-top:12px;
+            border:none;
+            border-radius:12px;
+            font-size:17px;
+            cursor:pointer;
+        "
+    >
+        🖼️ СУРЕТ ЖАСАУ
+    </button>
+
+    <div
+        id="imageResult"
+        style="margin-top:20px;text-align:center;"
+    ></div>
+
+</div>
+
+    <p>
+        🖼️ Сурет • 🎬 Видео • 📊 Презентация • 🎭 Комикс •
+        ✨ Анимация • 📰 Постер • 🎵 Аудио
+    </p>
+
+    <label><b>1️⃣ Қандай өнім жасайсыз?</b></label>
+
+    <select id="promptType" style="width:100%;padding:12px;margin:10px 0;">
+        <option>🖼️ Сурет</option>
+        <option>🎬 Видео</option>
+        <option>📊 Презентация</option>
+        <option>🎭 Комикс</option>
+        <option>✨ Анимация</option>
+        <option>📰 Постер</option>
+        <option>🎵 Аудио</option>
+        <option>📚 Сабақ материалы</option>
+        <option>📝 Тест</option>
+    </select>
+
+    <label><b>2️⃣ Пән</b></label>
+
+    <input
+        id="promptSubject"
+        placeholder="Мысалы: Информатика"
+        style="width:100%;box-sizing:border-box;padding:12px;margin:10px 0;"
+    >
+
+    <label><b>3️⃣ Сынып</b></label>
+
+    <select id="promptClass" style="width:100%;padding:12px;margin:10px 0;">
+        <option>5-сынып</option>
+        <option>6-сынып</option>
+        <option>7-сынып</option>
+        <option>8-сынып</option>
+        <option>9-сынып</option>
+        <option>10-сынып</option>
+        <option>11-сынып</option>
+    </select>
+
+    <label><b>4️⃣ Негізгі идеяңыз</b></label>
+
+    <textarea
+        id="promptIdea"
+        placeholder="Мысалы: Python циклін қызықты комикс арқылы түсіндіру"
+        style="width:100%;min-height:120px;box-sizing:border-box;padding:12px;margin:10px 0;"
+    ></textarea>
+
+    <label><b>5️⃣ Қосымша талаптар</b></label>
+
+    <textarea
+        id="promptDetails"
+        placeholder="Кейіпкерлер, стиль, фон, түс, музыка, камера қозғалысы және т.б."
+        style="width:100%;min-height:120px;box-sizing:border-box;padding:12px;margin:10px 0;"
+    ></textarea>
+
+    <button
+        onclick="generateFullPrompt()"
+        style="width:100%;padding:15px;margin-top:10px;"
+    >
+        🤖 КӘСІБИ ПРОМПТ ҚҰРАСТЫРУ
+    </button>
+
+    <div id="fullPromptResult" style="margin-top:20px;"></div>
+
+</section>
 </main>
+
+<!-- ======================================
+     🌍 PISA / ФУНКЦИОНАЛДЫҚ САУАТТЫЛЫҚ
+====================================== -->
+
+
+<section
+    class="section"
+    id="pisaSection"
+>
+
+    <h2>
+        🌍 PISA — функционалдық сауаттылық
+    </h2>
+
+    <p>
+        Өмірлік жағдайға негізделген
+        информатикалық тапсырманы орындаңыз.
+    </p>
+
+    <div
+        id="pisaTask"
+        style="
+            background:#eff6ff;
+            padding:18px;
+            border-radius:12px;
+            margin-top:15px;
+        "
+    >
+
+        <h3>
+            💻 Мектептегі компьютерлер
+        </h3>
+
+        <p>
+            Мектепте 24 компьютер бар.
+            Оның 75%-ы сабақ кезінде жұмыс істеп тұр.
+            Жұмыс істеп тұрған компьютерлер саны қанша?
+        </p>
+
+        <input
+            type="number"
+            id="pisaAnswer"
+            placeholder="Жауабыңызды енгізіңіз"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:12px;
+                margin:10px 0;
+                border:1px solid #d1d5db;
+                border-radius:10px;
+                font-size:16px;
+            "
+        >
+
+        <button
+            onclick="checkPisaAnswer()"
+        >
+            ✅ Жауапты тексеру
+        </button>
+
+    </div>
+
+    <div
+        id="pisaResult"
+        style="margin-top:20px;"
+    ></div>
+
+</section>
 
 
 <!-- ======================================
